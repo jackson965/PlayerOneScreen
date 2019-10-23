@@ -8,10 +8,13 @@ SCR_PATH := scr
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH) $(LOCAL_PATH)/$(SDL_PATH)/include \
 $(LOCAL_PATH)/$(FFMPEG_PATH)/include \
-$(LOCAL_PATH)/$(SCR_PATH)/include
+$(LOCAL_PATH)/$(SCR_PATH)/include \
+$(wildcard $(LOCAL_PATH)/android)
+
 
   # Add your application source files here...
-LOCAL_SRC_FILES := $(wildcard $(LOCAL_PATH)/*.c)
+LOCAL_SRC_FILES := $(wildcard $(LOCAL_PATH)/*.c) \
+$(wildcard $(LOCAL_PATH)/sys/unix/*.c)
 
 #$(warning  LOCAL_PATH = $(LOCAL_PATH))
 $(warning  LOCAL_SRC_FILES = $(LOCAL_SRC_FILES))

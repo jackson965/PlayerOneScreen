@@ -7,6 +7,7 @@
 #include <SDL_syswm.h>
 #include <android/native_window_jni.h>
 #include <unistd.h>
+#include <libavcodec/avcodec.h>
 #include "log.h"
 #include "../ffmpeg/include/libavformat/avformat.h"
 #include "../ffmpeg/include/libavutil/pixfmt.h"
@@ -16,6 +17,7 @@
 
 #include "icon.xpm"
 #include "tiny_xpm.h"
+#include "scrcpy.h"
 
 void Java_com_ai_aiplayer_FFJniCaller_decode
         (JNIEnv *env, jclass jcls, jstring input_jstr, jstring output_jstr) {
@@ -207,6 +209,7 @@ JNIEXPORT void JNICALL Java_com_ai_aiplayer_FFJniCaller_render
         LOGE("Didn't find best stream ");
         return;
     }
+    LOGI("videoStream:  %d", video_stream);
     AVStream *st = pFormatCtx->streams[video_stream];
 
     AVCodec *pCodec = avcodec_find_decoder(st->codecpar->codec_id);
@@ -271,7 +274,7 @@ JNIEXPORT void JNICALL Java_com_ai_aiplayer_FFJniCaller_render
 
     int frameFinished;
     struct AVPacket packet;
-    int cnt ;
+    int cnt;
     while (av_read_frame(pFormatCtx, &packet) >= 0) {
         if (packet.stream_index == video_stream) {
 //            Use avcodec_send_packet() and avcodec_receive_frame().
@@ -319,5 +322,37 @@ JNIEXPORT void JNICALL Java_com_ai_aiplayer_FFJniCaller_render
     avformat_close_input(&pFormatCtx);
 
     (*env)->ReleaseStringUTFChars(env, input_jstr, filename);
+    return;
+}
+
+
+JNIEXPORT void JNICALL Java_com_ai_aiplayer_FFJniCaller_audioDecode
+        (JNIEnv *env, jobject jobj, jstring jstr0, jstring jstr1) {
+
+
+//    if (avformat_network_init()) {
+//        LOGE(" avformat_network_init failed ");
+//        return;
+//    }
+//    struct scrcpy_options options = {
+//            .serial = NULL,
+//            .crop = NULL,
+//            .port = DEFAULT_LOCAL_PORT,
+//            .record_filename = NULL,
+//            .window_title = "#100 Call#",
+//            .push_target = NULL,
+//            .record_format = RECORDER_FORMAT_MP4,
+//            .max_size = DEFAULT_MAX_SIZE,
+//            .bit_rate = DEFAULT_BIT_RATE,
+//            .show_touches = true,
+//            .fullscreen = false,
+//            .always_on_top = true,
+//            .control = true,
+//            .display = true,
+//            .turn_screen_off = false,
+//            .render_expired_frames = true,
+//    };
+//    int res = scrcpy(&options) ? 0 : 1;
+//    avformat_network_deinit(); // ignore failure
     return;
 }
