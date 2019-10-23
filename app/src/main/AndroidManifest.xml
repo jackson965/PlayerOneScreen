@@ -23,7 +23,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".SimpleRenderActivity" />
-        <activity android:name="org.libsdl.app.SDLActivity" />
     </application>
 
 </manifest>

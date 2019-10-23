@@ -1,5 +1,5 @@
 #include "str_util.h"
-#include "SDL_types.h"
+#include "../sdl/include/SDL_types.h"
 
 #include <stdlib.h>
 #include <string.h>

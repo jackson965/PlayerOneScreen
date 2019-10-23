@@ -15,9 +15,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.werb.permissionschecker.PermissionChecker;
-
-import org.libsdl.app.SDLActivity;
 
 import java.io.File;
 
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     private PermissionChecker permissionChecker;
-    FFJniCaller player;
 
 
     @Override
@@ -44,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             public void onClick(View v) {
                 ll("llllllllllllll");
                 Intent ii = new Intent();
-                ii.setClass(MainActivity.this, SDLActivity.class);
+                ii.setClass(MainActivity.this, SimpleRenderActivity.class);
                 startActivity(ii);
             }
         });
@@ -56,13 +54,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                ll("llllllllllllll");
-                Intent ii = new Intent();
-                ii.setClass(MainActivity.this, SimpleRenderActivity.class);
-                startActivity(ii);
-
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
