@@ -1,0 +1,36 @@
+#ifndef SCRCPY_H
+#define SCRCPY_H
+
+#include <stdbool.h>
+#include <stdint.h>
+#include <recorder.h>
+
+//#include "config.h"
+
+#define DEFAULT_BIT_RATE 8000000
+#define DEFAULT_MAX_SIZE 0
+#define DEFAULT_LOCAL_PORT 27180
+
+struct scrcpy_options {
+    const char *serial;
+    const char *crop;
+    const char *record_filename;
+    const char *window_title;
+    const char *push_target;
+    enum recorder_format record_format;
+    uint16_t port;
+    uint16_t max_size;
+    uint32_t bit_rate;
+    bool show_touches;
+    bool fullscreen;
+    bool always_on_top;
+    bool control;
+    bool display;
+    bool turn_screen_off;
+    bool render_expired_frames;
+};
+
+bool
+scrcpy(const struct scrcpy_options *options);
+
+#endif
